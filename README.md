@@ -6,8 +6,10 @@ This repository contains a certificate state machine implemented in Rustlang. Th
 
 ## Features
 
+Demonstrate how statetransitions can be codified. Also add som domain spesific constraints to the FSM, like require some dates and comments to be given for appropriate transitions. Not sure if such extra constraints is a good pattern.
+
+Illegal transitions will not compile 💥
+
 ## Usage
 
-## Contributing
-
-## License
+Don´t. Make your own.
