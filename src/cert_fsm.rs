@@ -6,7 +6,7 @@ pub struct CertApp<State> {
     pub state: State,
 }
 
-/// <Draft>, Draft saved date: {draft_saved_date}
+/// <Draft>, Draft saved date: {draft_saved_date}, Comment: {comment}
 #[derive(Debug, Display)]
 pub struct Draft {
     draft_saved_date: String,
@@ -17,7 +17,7 @@ impl CertApp<Draft> {
         CertApp {
             state: Draft {
                 draft_saved_date: date,
-                comment: "".to_string(),
+                comment: String::new(),
             },
         }
     }
@@ -70,7 +70,7 @@ impl CertApp<Requested> {
         CertApp {
             state: Draft {
                 draft_saved_date: self.state.draft_saved_date,
-                comment: comment,
+                comment,
             },
         }
     }
@@ -109,7 +109,7 @@ impl CertApp<Issued> {
     }
 }
 
-/// <Invalid>
+/// <Invalid> Draft saved date: {draft_saved_date}, Requested date: {requested_date}, Issued date: {issued_date}, Expiration date: {expiration_date}, Revocation date: {revocation_date}
 #[derive(Debug, Display)]
 pub struct Invalid {
     draft_saved_date: String,
@@ -119,7 +119,7 @@ pub struct Invalid {
     revocation_date: String,
 }
 
-/// <Expired>
+/// <Expired> Draft saved date: {draft_saved_date}, Requested date: {requested_date}, Issued date: {issued_date}, Expiration date: {expiration_date}
 #[derive(Debug, Display)]
 struct Expired {
     draft_saved_date: String,
