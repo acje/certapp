@@ -1,0 +1,7 @@
+[package]
+name = "certapp"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+displaydoc = "0.2.4"
