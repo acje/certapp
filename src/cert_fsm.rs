@@ -10,12 +10,14 @@ pub struct CertApp<State> {
 #[derive(Debug, Display)]
 pub struct Draft {
     draft_saved_date: String,
+    comment: String,
 }
 impl CertApp<Draft> {
     pub fn new(date: String) -> Self {
         CertApp {
             state: Draft {
                 draft_saved_date: date,
+                comment: "".to_string(),
             },
         }
     }
@@ -24,6 +26,14 @@ impl CertApp<Draft> {
             state: Requested {
                 draft_saved_date: self.state.draft_saved_date,
                 requested_date: date,
+            },
+        }
+    }
+    pub fn update(self, date: String) -> CertApp<Draft> {
+        CertApp {
+            state: Draft {
+                draft_saved_date: date,
+                comment: self.state.comment,
             },
         }
     }
@@ -56,6 +66,14 @@ impl CertApp<Requested> {
             },
         }
     }
+    pub fn feedback(self, comment: String) -> CertApp<Draft> {
+        CertApp {
+            state: Draft {
+                draft_saved_date: self.state.draft_saved_date,
+                comment: comment,
+            },
+        }
+    }
 }
 
 /// <Issued> Draft saved date: {draft_saved_date}, Requested date: {requested_date}, , Issued date: {issued_date}, Expiration date: {expiration_date}
@@ -67,18 +85,48 @@ pub struct Issued {
     expiration_date: String,
 }
 
+impl CertApp<Issued> {
+    pub fn revocate(self, date: String) -> CertApp<Invalid> {
+        CertApp {
+            state: Invalid {
+                draft_saved_date: self.state.draft_saved_date,
+                requested_date: self.state.requested_date,
+                issued_date: self.state.issued_date,
+                expiration_date: self.state.expiration_date,
+                revocation_date: date,
+            },
+        }
+    }
+    pub fn expire(self) -> CertApp<Expired> {
+        CertApp {
+            state: Expired {
+                draft_saved_date: self.state.draft_saved_date,
+                requested_date: self.state.requested_date,
+                issued_date: self.state.issued_date,
+                expiration_date: self.state.expiration_date,
+            },
+        }
+    }
+}
+
 /// <Invalid>
 #[derive(Debug, Display)]
 pub struct Invalid {
     draft_saved_date: String,
     requested_date: String,
     issued_date: String,
+    expiration_date: String,
     revocation_date: String,
 }
 
 /// <Expired>
 #[derive(Debug, Display)]
-struct Expired;
+struct Expired {
+    draft_saved_date: String,
+    requested_date: String,
+    issued_date: String,
+    expiration_date: String,
+}
 
 /// <Declined> Draft saved date: {draft_saved_date}, Requested date: {requested_date}, Declined date: {declined_date}, Reason: {reason}
 #[derive(Debug, Display)]
