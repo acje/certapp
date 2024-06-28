@@ -121,7 +121,7 @@ pub struct Invalid {
 
 /// <Expired> Draft saved date: {draft_saved_date}, Requested date: {requested_date}, Issued date: {issued_date}, Expiration date: {expiration_date}
 #[derive(Debug, Display)]
-struct Expired {
+pub struct Expired {
     draft_saved_date: String,
     requested_date: String,
     issued_date: String,

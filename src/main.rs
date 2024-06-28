@@ -1,6 +1,8 @@
 #![warn(clippy::pedantic)]
 use cert_fsm::CertApp;
+use cert_fsm_tiny::CertFSM;
 mod cert_fsm;
+mod cert_fsm_tiny;
 
 fn main() {
     let doc = CertApp::new("2024-01-01".to_string());
@@ -29,4 +31,15 @@ fn main() {
         .issue("2024-01-05".to_string(), "2024-01-06".to_string())
         .revocate("2024-01-07".to_string());
     println!("Doc3: {doc3}");
+
+    let doc4 = CertFSM::new()
+        .update()
+        .submit()
+        .feedback()
+        .update()
+        .submit()
+        .issue()
+        .expire();
+
+    println!("Doc4: {doc4}");
 }
