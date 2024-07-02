@@ -32,14 +32,17 @@ fn main() {
         .revocate("2024-01-07".to_string());
     println!("Doc3: {doc3}");
 
-    let doc4 = CertFSM::new()
-        .update()
-        .submit()
-        .feedback()
-        .update()
-        .submit()
-        .issue()
-        .expire();
+    let doc4 = CertFSM::new(
+        "This is the doc title".to_string(),
+        "Here goes the content of the applicaton".to_string(),
+    )
+    .update("Here goes the updated content of the application".to_string())
+    .submit()
+    .feedback()
+    .update("Here goes the updated content of the application again".to_string())
+    .submit()
+    .issue()
+    .expire();
 
     println!("Doc4: {doc4}");
 }
