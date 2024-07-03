@@ -12,4 +12,4 @@ Illegal transitions will not compile 💥
 
 ## Usage
 
-Don´t. Make your own.
+Don´t do it. Make your own. :)
