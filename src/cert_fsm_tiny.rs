@@ -17,7 +17,7 @@ pub struct Certificate {
 }
 
 #[derive(Debug, Display)]
-enum Document {
+pub enum Document {
     /// Doctype Application: {0}
     A(Application),
     /// Doctype Certificate: {0}
@@ -27,8 +27,8 @@ enum Document {
 /// Certificate application lifecycle: {state}, {document}
 #[derive(Debug, Display)]
 pub struct CertFSM<State> {
-    pub state: State,
-    pub document: Document,
+    state: State,
+    document: Document,
 }
 
 /// <Draft>
